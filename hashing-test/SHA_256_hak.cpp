@@ -1,10 +1,13 @@
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <bitset>
 #include <vector>
 #include <iomanip>
 #include <cstring>
 #include <stdlib.h>
+#include <ctime>
+#include <sstream>
 #include "mining.h"
 
 // By: hak8or
@@ -154,32 +157,57 @@ Errors : The message length should be no more than 55 characters.*/
 // }
 void mining(string message){
 	long int inDec = finalNumber(message);
+	int replasementStringCounter=1;
+	ofstream myfile;
+	myfile.open ("log.txt");
 
-
-	long int numberToCompareTo = 7223372036854775807;
+	long int numberToCompareTo = 22233720368547758;
 	string stringToReplaseWith = "1";
 	string newMsg = "";
 
 	long int hashedNumber = inDec;
-
+	//cout << "hash before while: " <<  hashedNumber << endl;
 	int msgLenght = message.length();
 	int counter=0;
     while(!(hashedNumber<numberToCompareTo)){
+			//cout << "next hash" <<  hashedNumber << endl;
 			if (counter<msgLenght-1) {
+				//cout << "counter: "<<counter<<" < "<< "msglength: " << msgLenght << endl;
 				newMsg = message.replace(counter,counter+1,stringToReplaseWith);
 				counter +=1;
-			}else{
-				// counter = 0;
-				// //stringToReplaseWith += "1";
-				// newMsg = message.replace(counter,counter+1,stringToReplaseWith);
-				std::cout << "not found" << '\n';
-				exit;
+			}else {
+				//std::cout << "counter in else" << counter << '\n';
+				std::stringstream ss; //from <sstream>
+				replasementStringCounter+=1;
+				ss << replasementStringCounter;
+				std::string s = ss.str ();
 
+				 counter = 0;
+
+				 stringToReplaseWith = s;
+
+				// //stringToReplaseWith += "1";
+				newMsg = message.replace(counter,counter+1,stringToReplaseWith);
+				//cout << "new counter: " << counter << " new replacement string: " <<stringToReplaseWith << '\n';
+				//exit;
 		}
+int start_s=clock();
+	// the code you wish to time goes here
 hashedNumber = finalNumber(newMsg);
+int stop_s=clock();
+cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+cout << "next hash" <<  hashedNumber << endl;
+myfile << "next hash " <<  hashedNumber << "\n";
+myfile <<"time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << "\n";
+
+
+
 }
-cout << "found !" << endl;
+cout << "found it !" << endl;
 cout << hashedNumber <<endl;
+myfile << "found it !" << "\n";
+myfile << hashedNumber <<"\n";
+myfile.close();
 }
 
 long int finalNumber(string message){

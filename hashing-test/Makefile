@@ -1,10 +1,15 @@
-all: build
+all: test
+
+test: build2
+	./prog2
 
 build1: libdy.so main.o
-	g++ -o prog1 main.o mining.h -L -ldy -Wl,-rpath=/home/olya/Documents/practice/cs-training/hashing-test
+	g++  -Wl,-rpath=/home/olya/Documents/practice/cs-training/hashing-test -L  main.o -o prog1  -ldy
 
 build2:  libdy.so main.o
-	g++ main.o mining.h -L -ldy -o prog2
+	g++ -I. -L. main.cpp -o prog2 -ldy
+	sudo mv libdy.so /usr/lib
+	sudo chmod 755 /usr/lib/libdy.so
 
 libdy.so: SHA_256_hak.o
 	g++ -shared SHA_256_hak.o -o libdy.so
@@ -18,4 +23,4 @@ main.o: main.cpp
 
 
 clean:
-	rm -rf *o prog
+	rm -rf *o prog* log.txt
