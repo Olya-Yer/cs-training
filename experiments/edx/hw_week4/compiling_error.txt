@@ -1,0 +1,7 @@
+/tmp/ccsarARj.o: In function `main':
+main.cpp:(.text+0x32): undefined reference to `Node::Node()'
+main.cpp:(.text+0x7b): undefined reference to `Node::Node(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)'
+main.cpp:(.text+0xe3): undefined reference to `Node::Node(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)'
+main.cpp:(.text+0x156): undefined reference to `Node::addNode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int)'
+main.cpp:(.text+0x182): undefined reference to `Node::load(char const*)'
+collect2: error: ld returned 1 exit status
